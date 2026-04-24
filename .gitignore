@@ -1,0 +1,13 @@
+node_modules
+.next
+out
+.DS_Store
+*.log
+.env*.local
+.vercel
+next-env.d.ts
+.claude/settings.local.json
+
+# Original source assets — live under public/images/ in the built app
+/images/
+/example*.png

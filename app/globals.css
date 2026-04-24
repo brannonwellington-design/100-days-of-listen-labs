@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+:root {
+  --content-primary: #120F08;
+  --content-secondary: rgba(18, 15, 8, 0.6);
+  --content-inverse-primary: #F9F4EB;
+  --content-inverse-secondary: rgba(249, 244, 235, 0.6);
+  --content-disabled: rgba(18, 15, 8, 0.3);
+  --content-brand: #0021CC;
+  --content-brand-contrast: #F9F4EB;
+
+  --surface-highlight: #FCFBF7;
+  --surface-primary: #F9F4EB;
+  --surface-secondary: #EEE8DD;
+  --surface-tertiary: #E2DCCF;
+  --surface-inverse-primary: #120F08;
+  --surface-inverse-secondary: #1F1B14;
+  --surface-brand-primary: #0021CC;
+  --surface-brand-secondary: rgba(0, 33, 204, 0.10);
+}
+
+html, body {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  background: var(--surface-primary);
+  color: var(--content-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+  font-weight: 400;
+}
+
+/* Do not override letter-spacing anywhere — brand rule. */
