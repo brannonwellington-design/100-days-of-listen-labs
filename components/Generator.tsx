@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState, useEffect } from "react";
 import { toPng, toBlob } from "html-to-image";
-import { Shuffle, Download, Copy, Check } from "lucide-react";
+import { Shuffle, Download, Copy, Check, Sun, Moon } from "lucide-react";
 import { CATEGORIES } from "@/lib/categories";
 import { THEMES, THEME_ORDER, ThemeKey } from "@/lib/themes";
 import type { ImageManifest } from "@/lib/images";
@@ -11,6 +11,8 @@ import { Card } from "./Card";
 type Props = {
   manifest: ImageManifest;
 };
+
+type SiteMode = "light" | "dark";
 
 export default function Generator({ manifest }: Props) {
   const [categoryKey, setCategoryKey] = useState<string>("all");
@@ -21,6 +23,7 @@ export default function Generator({ manifest }: Props) {
   const [themeKey, setThemeKey] = useState<ThemeKey>("light");
   const [copied, setCopied] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const [siteMode, setSiteMode] = useState<SiteMode>("light");
 
   const cardRef = useRef<HTMLDivElement | null>(null);
   const theme = THEMES[themeKey];
@@ -44,6 +47,11 @@ export default function Generator({ manifest }: Props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // propagate site mode to <html> so body bg + CSS vars flip globally
+  useEffect(() => {
+    document.documentElement.dataset.siteMode = siteMode;
+  }, [siteMode]);
 
   async function renderPng(): Promise<Blob | null> {
     if (!cardRef.current) return null;
@@ -93,11 +101,34 @@ export default function Generator({ manifest }: Props) {
   }
 
   return (
-    <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px 64px" }}>
-      {/* Brand header */}
-      <div style={{ textAlign: "center", padding: "24px 0 48px", fontSize: 12 }}>
-        <span style={{ color: "var(--content-secondary)" }}>Listen Labs /</span>
-        <span style={{ color: "var(--content-primary)" }}> 100 Days of Listen Labs</span>
+    <div data-site-mode={siteMode} style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px 64px", position: "relative" }}>
+      {/* Brand header + site mode toggle */}
+      <div style={{ position: "relative", padding: "24px 0 48px" }}>
+        <div style={{ textAlign: "center", fontSize: 12 }}>
+          <span style={{ color: "var(--content-secondary)" }}>Listen Labs /</span>
+          <span style={{ color: "var(--content-primary)" }}> 100 Days of Listen Labs</span>
+        </div>
+        <button
+          onClick={() => setSiteMode(siteMode === "light" ? "dark" : "light")}
+          aria-label={siteMode === "light" ? "Switch to dark mode" : "Switch to light mode"}
+          style={{
+            position: "absolute",
+            top: 16,
+            right: 0,
+            width: 32,
+            height: 32,
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            border: "1px solid var(--content-disabled)",
+            borderRadius: 8,
+            background: "transparent",
+            color: "var(--content-primary)",
+            cursor: "pointer",
+          }}
+        >
+          {siteMode === "light" ? <Moon size={16} strokeWidth={1.25} /> : <Sun size={16} strokeWidth={1.25} />}
+        </button>
       </div>
 
       {/* Section title */}
@@ -109,7 +140,7 @@ export default function Generator({ manifest }: Props) {
           color: "var(--content-primary)",
         }}
       >
-        Generate your weird little dudes and dudettes
+        100 Days of Listen Labs
       </h1>
       <p
         style={{
@@ -155,7 +186,7 @@ export default function Generator({ manifest }: Props) {
 
           <div>
             <button onClick={pickRandom} style={primaryButton}>
-              <Shuffle size={18} strokeWidth={1.5} /> Generate
+              <Shuffle size={18} strokeWidth={1.5} /> Get your weird little dude
             </button>
           </div>
 
@@ -163,7 +194,7 @@ export default function Generator({ manifest }: Props) {
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Brannon Wellington"
+              placeholder="First Last"
               style={inputStyle}
             />
           </Section>
@@ -172,7 +203,7 @@ export default function Generator({ manifest }: Props) {
             <input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Founding Product Designer"
+              placeholder="Your role"
               style={inputStyle}
             />
           </Section>

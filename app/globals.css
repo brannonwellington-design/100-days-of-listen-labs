@@ -4,7 +4,8 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
-:root {
+:root,
+html[data-site-mode="light"] {
   --content-primary: #120F08;
   --content-secondary: rgba(18, 15, 8, 0.6);
   --content-inverse-primary: #F9F4EB;
@@ -23,12 +24,32 @@
   --surface-brand-secondary: rgba(0, 33, 204, 0.10);
 }
 
+html[data-site-mode="dark"] {
+  --content-primary: #F9F4EB;
+  --content-secondary: rgba(249, 244, 235, 0.6);
+  --content-inverse-primary: #120F08;
+  --content-inverse-secondary: rgba(18, 15, 8, 0.6);
+  --content-disabled: rgba(249, 244, 235, 0.3);
+  --content-brand: #0021CC;
+  --content-brand-contrast: #F9F4EB;
+
+  --surface-highlight: #080603;
+  --surface-primary: #130F06;
+  --surface-secondary: #201C13;
+  --surface-tertiary: #30291D;
+  --surface-inverse-primary: #F9F4EB;
+  --surface-inverse-secondary: #F0E9DB;
+  --surface-brand-primary: #0021CC;
+  --surface-brand-secondary: rgba(0, 33, 204, 0.30);
+}
+
 html, body {
   font-family: "Inter", sans-serif;
   font-weight: 400;
   background: var(--surface-primary);
   color: var(--content-primary);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 150ms ease, color 150ms ease;
 }
 
 button, input, textarea, select {

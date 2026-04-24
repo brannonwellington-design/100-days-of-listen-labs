@@ -1,35 +1,28 @@
 type Props = {
-  circleColor: string;
-  glyphColor: string;
+  color: string;
   size?: number;
 };
 
-// Listen Labs mark: a filled circle with an audio-wave glyph inside.
-// circleColor should be the card's primary text color; glyphColor should be the card bg.
-export function LLMark({ circleColor, glyphColor, size = 28 }: Props) {
-  const stroke = Math.max(1, size / 14);
+// Listen Labs mark — matches favicon.svg. Fills use currentColor so it tints per theme.
+export function LLMark({ color, size = 32 }: Props) {
   return (
     <svg
       width={size}
-      height={size}
-      viewBox="0 0 28 28"
+      height={(size * 23) / 17}
+      viewBox="0 0 17 23"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-label="Listen Labs"
+      style={{ color }}
     >
-      <circle cx="14" cy="14" r="14" fill={circleColor} />
-      <g
-        stroke={glyphColor}
-        strokeWidth={stroke}
-        strokeLinecap="round"
-        fill="none"
-      >
-        <line x1="7" y1="14" x2="7" y2="14" />
-        <line x1="10" y1="11" x2="10" y2="17" />
-        <line x1="13" y1="8" x2="13" y2="20" />
-        <line x1="16" y1="10" x2="16" y2="18" />
-        <line x1="19" y1="12" x2="19" y2="16" />
-        <line x1="22" y1="14" x2="22" y2="14" />
-      </g>
+      <path
+        d="M15.3743 0.408977H8.45517C7.9619 0.408977 7.56238 0.808502 7.56238 1.30177V8.22092C7.56238 8.71419 7.9619 9.11371 8.45517 9.11371H15.3743C15.8676 9.11371 16.2671 8.71419 16.2671 8.22092V1.30177C16.2671 0.808502 15.8676 0.408977 15.3743 0.408977Z"
+        fill="currentColor"
+      />
+      <path
+        d="M6.71435 9.11354H0.893341C0.383333 9.11354 -0.0284702 9.54096 0.00166153 10.051C0.308559 15.266 3.15769 19.8081 7.3248 22.453C7.75 22.7231 8.31468 22.5847 8.57025 22.1506L11.5232 17.1498C11.7642 16.7413 11.6437 16.2157 11.2486 15.9534C9.23873 14.6221 7.84597 12.4314 7.60268 9.90812C7.55916 9.45503 7.17079 9.11354 6.71547 9.11354H6.71435Z"
+        fill="currentColor"
+      />
     </svg>
   );
 }

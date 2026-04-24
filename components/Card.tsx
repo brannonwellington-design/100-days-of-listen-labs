@@ -12,8 +12,7 @@ type Props = {
   theme: Theme;
 };
 
-// 3:4 ratio card. Export size is 1080 x 1440.
-// Render at a consistent logical size so PNG export is pixel-deterministic.
+// 3:4 ratio card rendered at 1080 x 1440 (PNG export size).
 export const Card = forwardRef<HTMLDivElement, Props>(function Card(
   { imageSrc, quote, name, title, theme },
   ref,
@@ -36,7 +35,6 @@ export const Card = forwardRef<HTMLDivElement, Props>(function Card(
         boxSizing: "border-box",
       }}
     >
-      {/* Image area: large square-ish, centered */}
       <div
         style={{
           flex: "0 0 auto",
@@ -78,7 +76,6 @@ export const Card = forwardRef<HTMLDivElement, Props>(function Card(
         )}
       </div>
 
-      {/* Quote */}
       <div
         style={{
           marginTop: 48,
@@ -91,7 +88,6 @@ export const Card = forwardRef<HTMLDivElement, Props>(function Card(
         {quote ? `“${quote}”` : ""}
       </div>
 
-      {/* Footer: name, title, mark */}
       <div
         style={{
           marginTop: 32,
@@ -101,12 +97,12 @@ export const Card = forwardRef<HTMLDivElement, Props>(function Card(
           gap: 32,
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          <div style={{ fontSize: 24, color: theme.textPrimary }}>{name}</div>
-          <div style={{ fontSize: 24, color: theme.textSecondary }}>{title}</div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ fontSize: 40, lineHeight: 1.2, color: theme.textPrimary }}>{name}</div>
+          <div style={{ fontSize: 40, lineHeight: 1.2, color: theme.textSecondary }}>{title}</div>
         </div>
         <div style={{ flexShrink: 0 }}>
-          <LLMark circleColor={theme.textPrimary} glyphColor={theme.bg} size={64} />
+          <LLMark color={theme.textPrimary} size={72} />
         </div>
       </div>
     </div>
